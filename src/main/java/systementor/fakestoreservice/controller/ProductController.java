@@ -1,9 +1,7 @@
 package systementor.fakestoreservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import systementor.fakestoreservice.model.Product;
 import systementor.fakestoreservice.service.ProductService;
 
@@ -23,7 +21,7 @@ public class ProductController {
 
     @PostMapping("/fetch")
     public List<Product> fetchProducts() {
-        return service.fetchAndSaveProducts();
+         return service.fetchAndSaveProducts();
     }
 
     @GetMapping
