@@ -1,10 +1,15 @@
 package systementor.fakestoreservice.service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import systementor.fakestoreservice.model.Product;
 import systementor.fakestoreservice.repository.ProductRepository;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,13 +28,23 @@ public class ProductService {
     }
 
     public List<Product> fetchAndSaveProducts() {
-        String url = "https://fakestoreapi.com/products";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "Mozilla/5.0");
+        headers.set("Accept", "application/json");
 
-        Product[] response = restTemplate.getForObject(
-                url,
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+
+
+        ResponseEntity<Product[]> response = restTemplate.exchange(
+                "https://fakestoreapi.com/products",
+                HttpMethod.GET,
+                entity,
                 Product[].class
         );
-        List <Product> products = Arrays.asList(response);
+
+        Product[] prod = response.getBody();
+
+        List <Product> products = Arrays.asList(prod);
         repository.saveAll(products);
         return repository.findAll();
     }
