@@ -19,7 +19,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/fetch")
+    @GetMapping("/fetch")
     public List<Product> fetchProducts() {
          return service.fetchAndSaveProducts();
     }
