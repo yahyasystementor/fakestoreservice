@@ -1,8 +1,6 @@
 package systementor.fakestoreservice.model;
 
-import jakarta.persistence.Embeddable;
 
-@Embeddable
 public class Rating {
 
     private Double rate;
